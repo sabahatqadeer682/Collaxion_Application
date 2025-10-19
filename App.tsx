@@ -1,20 +1,43 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react';
+import SplashScreen from './screens/SplashScreen';
+import SplashScreen2 from './screens/SplashScreen2';
+
+import RolesScreen from './screens/studentscreens/RolesScreen';
+import StudentRegister from './screens/studentscreens/StudentRegister';
+import EnterCode from './screens/studentscreens/EnterCode';
+import StudentDashboard from './screens/studentscreens/StudentDashboard';
+
+
+
+
+export type RootStackParamList = {
+  Splash: undefined;
+  SplashScreen2: undefined;
+  HomeScreen: undefined;
+  RolesScreen: undefined;
+  StudentRegister: undefined;
+  EnterCode: { email: string };
+  StudentDashboard: undefined;
+};
+
+
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Splash" screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Splash" component={SplashScreen} />
+        <Stack.Screen name="SplashScreen2" component={SplashScreen2} />
+
+        <Stack.Screen name="RolesScreen" component={RolesScreen} />
+        <Stack.Screen name="StudentRegister" component={StudentRegister} />
+        <Stack.Screen name="EnterCode" component={EnterCode} />
+        <Stack.Screen name="StudentDashboard" component={StudentDashboard} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
