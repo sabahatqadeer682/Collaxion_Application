@@ -5,9 +5,12 @@ import SplashScreen from './screens/SplashScreen';
 import SplashScreen2 from './screens/SplashScreen2';
 
 import RolesScreen from './screens/studentscreens/RolesScreen';
-import StudentRegister from './screens/studentscreens/StudentRegister';
+import StudentLogin from './screens/studentscreens/StudentLogin';
 import EnterCode from './screens/studentscreens/EnterCode';
-import StudentDashboard from './screens/studentscreens/StudentDashboard';
+import StudentDashboardNavigator from './screens/studentscreens/StudentDashboardNavigator';
+
+import StudentRegister from './screens/studentscreens/StudentRegister';
+
 
 
 
@@ -34,9 +37,11 @@ export default function App() {
         <Stack.Screen name="SplashScreen2" component={SplashScreen2} />
 
         <Stack.Screen name="RolesScreen" component={RolesScreen} />
-        <Stack.Screen name="StudentRegister" component={StudentRegister} />
+        <Stack.Screen name="StudentLogin" component={StudentLogin} />
         <Stack.Screen name="EnterCode" component={EnterCode} />
-        <Stack.Screen name="StudentDashboard" component={StudentDashboard} />
+        <Stack.Screen name="StudentRegister" component={StudentRegister} />
+        <Stack.Screen name="StudentDashboardNavigator" component={StudentDashboardNavigator} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
