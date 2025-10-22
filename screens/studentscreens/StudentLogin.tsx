@@ -31,7 +31,7 @@ const StudentLogin = () => {
         }
 
         Alert.alert('Login Successful', `Welcome ${email}`);
-        navigation.navigate('StudentDashboardNavigator'); // ✅ navigate after login
+        navigation.navigate('StudentDashboardNavigator');
     };
 
     return (
