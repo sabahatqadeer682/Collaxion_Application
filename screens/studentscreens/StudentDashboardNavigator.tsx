@@ -9,18 +9,18 @@ import StudentHomeScreen from "./StudentHomeScreen";
 import NearbyIndustryScreen from "./NearbyIndustryScreen";
 import InternshipsProjectsScreen from "./InternshipsProjectsScreen";
 import RecommendedFeedScreen from "./RecommendedFeedScreen";
-import StudentLogin from "./StudentLogin"; // Login screen
+import StudentLogin from "./StudentLogin";
 
 const Drawer = createDrawerNavigator();
 
-// Custom Drawer Content
+
 const CustomDrawerContent = (props: any) => {
     const navigation = useNavigation<any>();
 
     const handleLogout = () => {
         Alert.alert("Logout", "Are you sure you want to logout?", [
             { text: "Cancel", style: "cancel" },
-            { text: "Logout", onPress: () => navigation.replace("StudentLogin") }, // Redirect to login screen
+            { text: "Logout", onPress: () => navigation.replace("StudentLogin") },
         ]);
     };
 
@@ -33,7 +33,7 @@ const CustomDrawerContent = (props: any) => {
                     style={styles.logoImage}
                 />
                 <Image
-                    source={require("../../assets/images/logo.jpeg")}
+                    source={require("../../assets/images/logo.png")}
                     style={styles.profileImage}
                 />
                 <Text style={styles.userName}>Hello, Student!</Text>
@@ -43,7 +43,7 @@ const CustomDrawerContent = (props: any) => {
             {/* Drawer Items */}
             <DrawerItemList
                 {...props}
-                activeTintColor="#E2EEF9" // Color theme for active item
+                activeTintColor="#E2EEF9"
                 inactiveTintColor="#fff"
                 labelStyle={{ fontSize: 16 }}
             />
@@ -68,7 +68,7 @@ const StudentDashboardNavigator = () => {
             screenOptions={{
                 headerStyle: { backgroundColor: "#193648" },
                 headerTintColor: "#fff",
-                drawerActiveTintColor: "#E2EEF9", // Active color theme
+                drawerActiveTintColor: "#E2EEF9",
                 drawerInactiveTintColor: "#fff",
                 drawerLabelStyle: { fontSize: 16 },
             }}
@@ -108,7 +108,7 @@ const StudentDashboardNavigator = () => {
             <Drawer.Screen
                 name="StudentLogin"
                 component={StudentLogin}
-                options={{ drawerItemStyle: { height: 0 } }} // Hide login from drawer
+                options={{ drawerItemStyle: { height: 0 } }}
             />
         </Drawer.Navigator>
     );
@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         marginBottom: 10,
+
     },
     profileImage: {
         width: 80,
@@ -137,6 +138,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: "#fff",
         marginBottom: 10,
+        backgroundColor: "#fff",
     },
     userName: {
         color: "#fff",
