@@ -18,6 +18,7 @@ import StudentRegister from './screens/studentscreens/StudentRegister';
 
 
 
+
 export type RootStackParamList = {
   Splash: undefined;
   SplashScreen2: undefined;
@@ -45,6 +46,7 @@ export default function App() {
         <Stack.Screen name="StudentLogin" component={StudentLogin} />
         <Stack.Screen name="EnterCode" component={EnterCode} />
         <Stack.Screen name="StudentRegister" component={StudentRegister} />
+
         <Stack.Screen name="StudentDashboardNavigator" component={StudentDashboardNavigator} />
 
       </Stack.Navigator>

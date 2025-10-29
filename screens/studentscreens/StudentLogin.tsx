@@ -13,24 +13,48 @@ import {
 } from "react-native";
 import axios from "axios";
 
-
-const API_BASE_URL = "http://192.168.0.205:5000/api/student";
+const API_BASE_URL = "http://10.0.2.2:5000/api/student";
 
 const StudentLogin = () => {
     const navigation = useNavigation<any>();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
 
-    const handleLogin = async () => {
-        const emailPattern = /^[\w-\.]+@students\.riphah\.edu\.pk$/;
+    // 📌 Live validation while typing
+    const handleEmailChange = (text: string) => {
+        let updatedEmail = text;
 
-        if (!emailPattern.test(email)) {
-            Alert.alert("Invalid Email", "Email must end with @students.riphah.edu.pk");
-            return;
+        // Auto-suggest domain if user types '@'
+        if (text.endsWith("@")) {
+            updatedEmail = text + "students.riphah.edu.pk";
         }
 
-        if (password.trim().length < 6) {
-            Alert.alert("Invalid Password", "Password must be at least 6 characters long");
+        setEmail(updatedEmail);
+
+        const emailPattern = /^[\w-\.]+@students\.riphah\.edu\.pk$/;
+        if (updatedEmail.trim() === "") {
+            setEmailError("Email is required");
+        } else if (!emailPattern.test(updatedEmail)) {
+            setEmailError("Email must end with @students.riphah.edu.pk");
+        } else {
+            setEmailError("");
+        }
+    };
+
+    const handlePasswordChange = (text: string) => {
+        setPassword(text);
+        if (text.trim().length < 6) {
+            setPasswordError("Password must be at least 6 characters");
+        } else {
+            setPasswordError("");
+        }
+    };
+
+    const handleLogin = async () => {
+        if (emailError || passwordError || !email || !password) {
+            Alert.alert("Error", "Please fix all validation errors before login.");
             return;
         }
 
@@ -39,17 +63,15 @@ const StudentLogin = () => {
             console.log("Server Response:", res.data);
 
             if (res.data.success) {
-                // Navigate to Dashboard
                 navigation.navigate("StudentDashboardNavigator");
             } else {
-                // Show backend error message
                 Alert.alert("Login Failed", res.data.message);
             }
         } catch (err: any) {
             console.log("Axios Error:", err.response?.data || err.message);
             Alert.alert(
                 "Error",
-                "Server not responding. Make sure backend is running and device/emulator is on the same network."
+                "Server not responding. Make sure backend is running and emulator/device is on the same network."
             );
         }
     };
@@ -71,24 +93,30 @@ const StudentLogin = () => {
                 <Text style={styles.headerText}>Welcome Back to CollaXion</Text>
                 <Text style={styles.tagline}>Where learning meets opportunity.</Text>
 
+                {/* Email Field */}
                 <TextInput
                     placeholder="Email"
                     value={email}
-                    onChangeText={setEmail}
-                    style={styles.input}
+                    onChangeText={handleEmailChange}
+                    style={[styles.input, emailError ? styles.errorBorder : null]}
                     keyboardType="email-address"
                     autoCapitalize="none"
                     placeholderTextColor="#888"
                 />
+                {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
 
+                {/* Password Field */}
                 <TextInput
                     placeholder="Password"
                     value={password}
-                    onChangeText={setPassword}
-                    style={styles.input}
+                    onChangeText={handlePasswordChange}
+                    style={[styles.input, passwordError ? styles.errorBorder : null]}
                     secureTextEntry
                     placeholderTextColor="#888"
                 />
+                {passwordError ? (
+                    <Text style={styles.errorText}>{passwordError}</Text>
+                ) : null}
 
                 <TouchableOpacity
                     style={styles.button}
@@ -134,7 +162,7 @@ const styles = StyleSheet.create({
         borderColor: "#ccc",
         borderRadius: 10,
         padding: 14,
-        marginBottom: 18,
+        marginBottom: 10,
         color: "#000",
         backgroundColor: "#f9f9f9",
         fontSize: 15,
@@ -145,13 +173,23 @@ const styles = StyleSheet.create({
         width: "90%",
         alignItems: "center",
         borderRadius: 10,
-        marginTop: 10,
+        marginTop: 15,
         marginBottom: 20,
         elevation: 2,
     },
     buttonText: { color: "#fff", fontSize: 17, fontWeight: "600", letterSpacing: 0.5 },
     switchText: { color: "#333", fontSize: 15 },
     linkText: { color: "#193648", fontWeight: "bold" },
+    errorText: {
+        color: "red",
+        fontSize: 13,
+        marginBottom: 8,
+        alignSelf: "flex-start",
+        marginLeft: "5%",
+    },
+    errorBorder: {
+        borderColor: "red",
+    },
 });
 
 export default StudentLogin;

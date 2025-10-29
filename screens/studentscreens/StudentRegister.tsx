@@ -16,8 +16,8 @@ import {
 } from "react-native";
 import axios from "axios";
 
-const API_BASE_URL = "http://192.168.0.205:5000/api/student";
 
+const API_BASE_URL = "http://10.0.2.2:5000/api/student";
 
 
 const StudentRegister = () => {
@@ -199,3 +199,4 @@ const styles = StyleSheet.create({
 });
 
 export default StudentRegister;
+
